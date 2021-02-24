@@ -97,6 +97,7 @@ select{
 		</select><br><br>
 
         <input type="submit" name="alta" value="Dar Alta"/>
+		<a href="menuEHR_view.php" ><input type="button" value="Volver al menú" class="volver"></a>
     </form>
 	</div>
 </body>
