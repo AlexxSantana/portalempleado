@@ -119,8 +119,12 @@ table {border-collapse: collapse;
 		<input type="submit" name="ver" value="Ver empleados"/>
     </form>
 	<?php
+	
 		if(isset($_POST["ver"])){
 			if(!empty($_SESSION["bandejaempleados"])){
+				//SE obtiene la siguiente variable de la sesion para usarla en la funcíon tablaEmpleados
+				$listaempleados = $_SESSION["bandejaempleados"];
+				
 				tablaEmpleados($listaempleados);
 				echo "<form action='' method='post'>";
 					echo '<input class="mover" type="submit" name="vaciar" value="Eliminar registros">';
