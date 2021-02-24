@@ -5,6 +5,13 @@
 	position:absolute;
 	top:39%;
 }
+
+.exito{
+	color:blue;
+	position:absolute;
+	top:65%;
+}
+
 </style>
 <?php
 //Llamada al modelo, intermediario entre vista y modelo
@@ -17,13 +24,24 @@ session_start();
 		session_unset();
 		session_destroy();
 }*/
-
+	
+	
 if(!empty($_SESSION["usuario"])){
+	
 	$listadpt=listaDepa();
+	$listacargo=listaCargo();
 }
-
+//si se hace click en el botón de dar Alta se insertarán los datos
 if (isset($_POST["alta"])){
-	echo "Hola";
+	//Se obtiene los valores del formulario (altaEmpleado_view.php)
+	$nacido=$_POST["nacido"];
+	$nombre=$_POST["nombre"];
+	$apellido=$_POST["apellido"];
+	$genero=$_POST["genero"];
+	$contrato=$_POST["contrato"];
+	//Insertar datos en la tabla employees
+	altaEmpleado($nacido, $nombre, $apellido, $genero, $contrato);
+	echo "<p class='exito'>Se ha dado de alta un/a nuevo empleado/a</p>";
 }
 
 //Llamada a la vista, intermediario entre vista y modelo
