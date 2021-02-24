@@ -81,20 +81,39 @@ function obteneridEmpleado(){
 # Return: lista de los productos
 #
 # Alex Santana
-function altaEmpleado($fechNac, $nombre, $apellido, $genero, $fechContrato){
+function altaEmpleado($fechNac, $nombre, $apellido, $genero, $fechContrato, $iddepa, $salario, $cargo){
 	global $conexion;
 	//se obtiene el nuevo id (emp_no)
 	$newidemp=obteneridEmpleado();
+	
+	
 	//Insertar datos en la tabla employees
 	$sqlOrder="INSERT INTO employees values('$newidemp','$fechNac','$nombre','$apellido', '$genero', '$fechContrato')";
 	$conexion->exec($sqlOrder);
 	
-	//
+	//se obtiene el dept_no para poder relacionar la tabla departments con dept_emp
+	$departamento="SELECT dept_no from departments WHERE dept_no='$iddepa'";
+	$stmt=$conexion->prepare($departamento);
+	$stmt->execute();
+	$depa=$stmt->fetchColumn();
 	
 	
-	//
-	$newdept_emp="INSERT INTO dept_emp values('$newidemp', 'd004', '$fechContrato', '9999-01-01')";
+	//Se inserta los datos de $newidemp, $depa(obtenido en la anterior senntencia sql) y la $fechContrato que se pase desde el formulario
+	$newdept_emp="INSERT INTO dept_emp values('$newidemp', '$depa', '$fechContrato', '9999-01-01')";
 	$conexion->exec($newdept_emp);
+	
+	
+	//Se inserta los datos de $newidemp, el $salario que se pase a través del formulario y $fechContrato 
+	$tablesalaries="INSERT INTO salaries values('$newidemp', '$salario', '$fechContrato', '9999-01-01')";
+	$conexion->exec($tablesalaries);
+	
+	//Se inserta los datos de $newidemp, el $cargo que se pasa a través del formulario y la $fechContrato
+	$tabletitles="INSERT INTO titles values('$newidemp', '$cargo', '$fechContrato', '9999-01-01')";
+	$conexion->exec($tabletitles);
+	
+	//NO SE AÑADEN REGISTROS A LA TABLA dept_manager :S
+	$tabledept_manager="INSERT INTO dept_manager values('$newidemp', '$depa', '$fechContrato', '9999-01-01')";
+	
 }
 
 ?>
