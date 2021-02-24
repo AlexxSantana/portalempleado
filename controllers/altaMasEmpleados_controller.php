@@ -12,6 +12,7 @@
 	top:65%;
 }
 
+
 </style>
 <?php
 //Llamada al modelo, intermediario entre vista y modelo
@@ -29,23 +30,17 @@ session_start();
 if(!isset($_SESSION["usuario"])){
 		header("location: ../index.php");
 		//session_destroy();
-}else{
+}else{//si existe la sesion de usuario, es decir esta logeado, se obtendrán las siguientes variables para poder hacer uso de ellas en la vista y poder mostrar el nombre+apellido del empleaod que este logeado en ese momento
 		$idUser=$_SESSION["usuario"];
 		$nombreU=obtenerNombre($idUser);
 	}
 
-//	
+//Si se ha iniciado sesión se lista los siguientes elementos
 if(!empty($_SESSION["usuario"])){
 	
 	$listadpt=listaDepa();
 	$listacargo=listaCargo();
 }
-
-
-//
-
-
-
 
 //si se hace click en el botón de dar Alta se insertarán los datos
 if (isset($_POST["agregar"])){
@@ -58,29 +53,70 @@ if (isset($_POST["agregar"])){
 	$depa=$_POST["departamento"];
 	$salario=$_POST["salario"];
 	$cargo=$_POST["cargo"];
-	//Insertar datos en la tabla employees
-	/*altaEmpleado($nacido, $nombre, $apellido, $genero, $contrato, $depa, $salario, $cargo);*/
-	//echo "<p class='exito'>Se ha dado de alta un/a nuevo empleado/a</p>";
+	
+	//si no existe la sesion["bandejaempleados"] se creará una nueva con un array, dónde se almacenara cada uno de los datos que se recogen del formulario
 	if(!isset($_SESSION["bandejaempleados"])){
 		$_SESSION["bandejaempleados"]=array(array($nacido, $nombre, $apellido, $genero, $contrato, $depa, $salario, $cargo));
-	}else{
+		echo "<p class='exito'>Empleado agregado a a lista, en espera de agregarlo..</p>";
+	}else{//si ya existe la sesion["bandejaempleados"] (ya tiene al menos 1 valor), se agregará al final del último valor agregado los siguientes y siguientes...
 		array_push($_SESSION["bandejaempleados"],array($nacido, $nombre, $apellido, $genero, $contrato, $depa, $salario, $cargo));
+		echo "<p class='exito'>Empleado agregado a a lista, en espera de agregarlo..</p>";
 	}
-	//var_dump($_SESSION["bandejaempleados"]);
-	
-	
+		
 }
 
-if(isset($_POST["ver"])){
-		//var_dump($_SESSION["bandejaempleados"]);
-		//echo $_SESSION["bandejaempleados"][0];
-		$listado = $_SESSION["bandejaempleados"];
-
-		foreach ($listado as $value) {
-		   echo "<tr><td>" . $value[0] . "</td><td>" . $value[1] .$value[2] .$value[3] .$value[4] .$value[5] .$value[6] .$value[7] . "</td></tr>";
-		}
-	}
-
+//Variable para usarla en la view y mostrar los datos de los empleados almacenados en la sesion["bandejaempleados"]
+$listaempleados = $_SESSION["bandejaempleados"];
+	
+//si se hace click en el botón vaciar se vaciará la sesion["bandejaempleados"]
+if(isset($_POST["vaciar"])){
+	$_SESSION["bandejaempleados"]=array();
+}
+	
+	
 //Llamada a la vista, intermediario entre vista y modelo
 require_once("../views/altaMasEmpleados_view.php");
+
+	
+//------------------------------------FUNCIONES----------------------------------//
+
+
+# Función 'tablaEmpleados'. 
+# Parámetros: 
+# 	
+# Funcionalidad: Obtener en formato tabla, el productName de producto y la cantidad que se haya seleccionado desde el select 
+# 
+# Return: 
+#
+# Alex Santana
+function tablaEmpleados($listaempleados){
+        echo "<strong class='tit'>Detalle Empleados</strong>
+            <table> 
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+					<th>Fecha nacimiento</th>
+					<th>Género</th>
+					<th>Fecha contrato</th>
+					<th>Departamento</th>
+					<th>Salario</th>
+					<th>Cargo</th>
+                </tr>";
+
+        foreach($_SESSION["bandejaempleados"] as $value){
+            echo "<tr>";
+            echo "<td> ".$value[1]. "</td>";
+            echo "<td>".$value[2]."</td>";	
+			echo "<td>".$value[0]."</td>";
+			echo "<td>".$value[3]."</td>";
+			echo "<td>".$value[4]."</td>";
+			echo "<td>".$value[5]."</td>";
+			echo "<td>".$value[6]."</td>";
+			echo "<td>".$value[7]."</td>";	
+            echo "</tr>";
+        }
+        echo "</table>";
+}
+
+
 ?>
