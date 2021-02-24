@@ -66,8 +66,20 @@ if (isset($_POST["agregar"])){
 	}else{
 		array_push($_SESSION["bandejaempleados"],array($nacido, $nombre, $apellido, $genero, $contrato, $depa, $salario, $cargo));
 	}
-	var_dump($_SESSION["bandejaempleados"]);
+	//var_dump($_SESSION["bandejaempleados"]);
+	
+	
 }
+
+if(isset($_POST["ver"])){
+		//var_dump($_SESSION["bandejaempleados"]);
+		//echo $_SESSION["bandejaempleados"][0];
+		$listado = $_SESSION["bandejaempleados"];
+
+		foreach ($listado as $value) {
+		   echo "<tr><td>" . $value[0] . "</td><td>" . $value[1] .$value[2] .$value[3] .$value[4] .$value[5] .$value[6] .$value[7] . "</td></tr>";
+		}
+	}
 
 //Llamada a la vista, intermediario entre vista y modelo
 require_once("../views/altaMasEmpleados_view.php");
