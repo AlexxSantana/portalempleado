@@ -22,10 +22,35 @@ if(!isset($_SESSION["usuario"])){
     <meta charset="utf-8" />
     <meta name="author" value="Lucas Fadavi"/>
 </head>
+<style>
+div#uno{
+    position: absolute;
+   
+}
+input[type="text"]{
+    position: absolute;
+    left: 105%;
+}
 
+input[type="date"]{
+    position: absolute;
+    left: 105%;
+}
+
+input[type="number"]{
+    position: absolute;
+    left: 105%;
+}
+
+select{
+	position: absolute;
+    left: 105%;
+}
+</style>
 <body>
 	<h3>Usuario <?php echo $nombreU["first_name"]." ".$nombreU["last_name"];?></h3>
     <h1> Alta de Empleados</h1>
+	<div id="uno">
     <form name='datos' action='<?php echo htmlentities($_SERVER["PHP_SELF"]);?>' method='POST'>
         <label for="nombre">Nombre</label>
         <input type="text" name="nombre" /><br><br>
@@ -34,7 +59,7 @@ if(!isset($_SESSION["usuario"])){
         <input type="text" name="apellido" /><br><br>
 		
 		 <label for="nacido">Fecha Nacimiento</label>
-        <input type="text" name="nacido" /><br><br>
+        <input type="date" name="nacido" /><br><br>
 		
 		 <label for="genero">Género</label>
         <select name="genero">
@@ -44,8 +69,9 @@ if(!isset($_SESSION["usuario"])){
 		</select><br><br>
 		
 		 <label for="contrato">Fecha de contratación</label>
-        <input type="text" name="contrato" /><br><br>
+        <input type="date" name="contrato" /><br><br>
 		
+		<label for="departamento">Departamento</label>
 		<select name="departamento">
 			<option value="0">--Selecciona un departamento--</option>
 			<?php
@@ -55,28 +81,26 @@ if(!isset($_SESSION["usuario"])){
 				}
 			?>
 		</select><br><br>
+		
+		<label for="salario">Salario</label>
+        <input type="number" name="salario" /><br><br>
+		
+		<label for="cargo">Cargo</label>
+		<select name="cargo">
+			<option value="0">--Selecciona un cargo--</option>
+			<?php
+				//lista de los departamentos
+				foreach($listacargo as $lista){
+					echo "<option value='".$lista['title']."'>".$lista['title']."</option>";
+				}
+			?>
+		</select><br><br>
 
         <input type="submit" name="alta" value="Dar Alta"/>
     </form>
+	</div>
 </body>
 </html>
 
-<?php
-# Función 'listaProductos'. 
-# Parámetros: 
-# 	
-# Funcionalidad: Se prepara una consulta sql del productName y que la quantityInStock sea superior a 0
-# 
-# Return: lista de los productos
-#
-# Alex Santana
-function obtenerNombre($usuario){
-	global $conexion;
-	$sql="SELECT first_name, last_name FROM employees WHERE emp_no='$usuario'";
-	$stmt=$conexion->prepare($sql);
-	$stmt->execute();
-	$nombre=$stmt->fetch(PDO::FETCH_ASSOC);
-	return $nombre;
-}
-?>
+
 
