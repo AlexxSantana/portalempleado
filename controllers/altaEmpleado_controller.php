@@ -39,8 +39,11 @@ if (isset($_POST["alta"])){
 	$apellido=$_POST["apellido"];
 	$genero=$_POST["genero"];
 	$contrato=$_POST["contrato"];
+	$depa=$_POST["departamento"];
+	$salario=$_POST["salario"];
+	$cargo=$_POST["cargo"];
 	//Insertar datos en la tabla employees
-	altaEmpleado($nacido, $nombre, $apellido, $genero, $contrato);
+	altaEmpleado($nacido, $nombre, $apellido, $genero, $contrato, $depa, $salario, $cargo);
 	echo "<p class='exito'>Se ha dado de alta un/a nuevo empleado/a</p>";
 }
 
