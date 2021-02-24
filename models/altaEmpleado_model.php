@@ -111,9 +111,9 @@ function altaEmpleado($fechNac, $nombre, $apellido, $genero, $fechContrato, $idd
 	$tabletitles="INSERT INTO titles values('$newidemp', '$cargo', '$fechContrato', '9999-01-01')";
 	$conexion->exec($tabletitles);
 	
-	//NO SE AÑADEN REGISTROS A LA TABLA dept_manager :S
+	//Se insertan los datos de $newidemp, $depa, y $fechContrato
 	$tabledept_manager="INSERT INTO dept_manager values('$newidemp', '$depa', '$fechContrato', '9999-01-01')";
-	
+	$conexion->exec($tabledept_manager);
 }
 
 ?>
