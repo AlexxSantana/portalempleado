@@ -66,11 +66,12 @@ if (isset($_POST["agregar"])){
 }
 
 //Variable para usarla en la view y mostrar los datos de los empleados almacenados en la sesion["bandejaempleados"]
-$listaempleados = $_SESSION["bandejaempleados"];
+//$listaempleados = $_SESSION["bandejaempleados"];
 	
 //si se hace click en el botón vaciar se vaciará la sesion["bandejaempleados"]
 if(isset($_POST["vaciar"])){
 	$_SESSION["bandejaempleados"]=array();
+	//session_unset($_SESSION["bandejaempleados"]);
 }
 	
 	
