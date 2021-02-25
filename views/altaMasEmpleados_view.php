@@ -56,9 +56,14 @@ table {border-collapse: collapse;
 
 .mover{
 	position:relative;
-	left:45%;
+	left:55%;
+
 }
 
+.mover2{
+	position:relative;
+	left:40%;
+}
 .error{
 	color:red;
 	position:absolute;
@@ -128,6 +133,7 @@ table {border-collapse: collapse;
 				tablaEmpleados($listaempleados);
 				echo "<form action='' method='post'>";
 					echo '<input class="mover" type="submit" name="vaciar" value="Eliminar registros">';
+					echo '<input class="mover2" type="submit" name="alta" value="Alta Masiva">';
 				echo "</form>";
 			} else{
 				echo "<p class='error'>No se ha agregado a ningún empleado a la lista<p>";
