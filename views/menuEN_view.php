@@ -17,10 +17,16 @@ if(!isset($_SESSION["usuario"])){
 <head>
 	<title>Portal del Empleado</title>
 	<meta charset="utf-8" />
-	<meta name="author" value="Lucas Fadavi" />
+	<meta name="author" value="Alex Santana" />
 </head>
+<style>
+.user{
+	color:brown;
+	font-size:18pt;
+}
+</style>
 <body>
-	<h1>Bienvenido <?php echo $nombreU["first_name"]." ".$nombreU["last_name"];?></h1>
+	<h1>Bienvenido <strong class="user"><?php echo $nombreU["first_name"]." ".$nombreU["last_name"];?></strong></h1>
 	<li><a href="">Mi Nómina</a></li>
 	<li><a href="">Historial Laboral</a></li>
 	<li><a href="../index.php">Cerrar Sesión</a></li>

@@ -18,11 +18,19 @@ if(!isset($_SESSION["usuario"])){
 	<meta charset="utf-8" />
 	<meta name="author" value="Alex Santana" />
 </head>
+
+<style>
+.user{
+	color:brown;
+	font-size:18pt;
+}
+</style>
+
 <body>
-	<h1>Bienvenido <?php echo $nombreU["first_name"]." ".$nombreU["last_name"];?> - DPTO Recursos Humanos</h1>
+	<h1>Bienvenido <strong class="user"><?php echo $nombreU["first_name"]." ".$nombreU["last_name"];?></strong> - DPTO Recursos Humanos</h1>
 	<li><a href="altaEmpleado_view.php">Alta Empleado</a></li>
 	<li><a href="altaMasEmpleados_view.php">Alta Masiva de Empleados</a></li>
-	<li><a href="">Modificar salario</a></li>
+	<li><a href="modSalario_view.php">Modificar salario</a></li>
 	<li><a href="">Vida Laboral</a></li>
 	<li><a href="">Info Departamentos</a></li>
 	<li><a href="">Cambio Departamento</a></li>

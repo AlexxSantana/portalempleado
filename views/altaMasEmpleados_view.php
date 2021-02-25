@@ -10,7 +10,7 @@ include_once("../controllers/altaMasEmpleados_controller.php");
 <head>
     <title>Alta de empleados</title>
     <meta charset="utf-8" />
-    <meta name="author" value="Lucas Fadavi"/>
+    <meta name="author" value="Alex Santana"/>
 </head>
 <style>
 div#uno{

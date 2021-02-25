@@ -2,16 +2,6 @@
 require_once("../db/db.php");
 include_once("../controllers/altaEmpleado_controller.php");
 
-
-//Si empleado no existe, es decir no esta logeado, volverá al index.php para logearse y no se podrá ver la info de esta pag hasta que se logee correctamente
-if(!isset($_SESSION["usuario"])){
-		header("location: ../index.php");
-		session_destroy();
-}else{
-		$idUser=$_SESSION["usuario"];
-		$nombreU=obtenerNombre($idUser);
-	}
-
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +10,7 @@ if(!isset($_SESSION["usuario"])){
 <head>
     <title>Alta de empleados</title>
     <meta charset="utf-8" />
-    <meta name="author" value="Lucas Fadavi"/>
+    <meta name="author" value="Alex Santana"/>
 </head>
 <style>
 div#uno{
@@ -46,14 +36,19 @@ select{
 	position: absolute;
     left: 105%;
 }
+
+.user{
+	color:brown;
+	font-size:18pt;
+}
 </style>
 <body>
-	<h3>Usuario <?php echo $nombreU["first_name"]." ".$nombreU["last_name"];?></h3>
+	<h3>Usuario <strong class="user"><?php echo $nombreU["first_name"]." ".$nombreU["last_name"];?></strong></h3>
     <h1> Alta de Empleados</h1>
 	<div id="uno">
     <form name='datos' action='<?php echo htmlentities($_SERVER["PHP_SELF"]);?>' method='POST'>
         <label for="nombre">Nombre</label>
-        <input type="text" name="nombre" /><br><br>
+        <input type="text" name="nombre" required /><br><br>
 
         <label for="apellido">Apellido</label>
         <input type="text" name="apellido" /><br><br>
@@ -62,7 +57,7 @@ select{
         <input type="date" name="nacido" /><br><br>
 		
 		 <label for="genero">Género</label>
-        <select name="genero">
+        <select name="genero" >
 		  <option value="0" selected>----</option>
 		  <option value="M">Masculino</option>
 		  <option value="F" >Femenino</option>
@@ -83,10 +78,10 @@ select{
 		</select><br><br>
 		
 		<label for="salario">Salario</label>
-        <input type="number" name="salario" /><br><br>
+        <input type="number" name="salario" required /><br><br>
 		
 		<label for="cargo">Cargo</label>
-		<select name="cargo">
+		<select name="cargo" >
 			<option value="0">--Selecciona un cargo--</option>
 			<?php
 				//lista de los departamentos
