@@ -12,7 +12,9 @@
 	top:65%;
 }
 
+.total{
 
+}
 </style>
 <?php
 //Llamada al modelo, intermediario entre vista y modelo
@@ -89,11 +91,18 @@ if(isset($_POST["vaciar"])){
 	$_SESSION["bandejaempleados"]=array();
 	//session_unset($_SESSION["bandejaempleados"]);
 }
+
+//Opción para poder eliminar a algún empleado sin tener que vacíar toda la sesion[bandejaempleados]
+if(isset($_REQUEST["item"])){
+	$empleado=$_REQUEST["item"];
+	unset($_SESSION["bandejaempleados"][$empleado]);
+}
 	
 //Al hacer click en el boton de alta (alta masiva empleados), accederemos a la sesion[bandejaempleados] dónde estarán almacenados los empleados que se hayan agregado anteriormente, se accederá por el valor de cada elemento en el array asociativo 
 if(isset($_POST["alta"])){
 	foreach($_SESSION["bandejaempleados"] as $value){
 		altaEmpleado($value["fechnac"], $value["nombre"], $value["apellido"], $value["genero"], $value["contrato"], $value["depar"], $value["salario"], $value["cargo"]);
+		
 	}
 	echo "<p class='exito'>Alta masiva de empleados completa</p>";
 	//se vacia el la bandejaempleados
@@ -116,6 +125,7 @@ require_once("../views/altaMasEmpleados_view.php");
 #
 # Alex Santana
 function tablaEmpleados($listaempleados){
+		$total=0;
         echo "<strong class='tit'>Detalle Empleados</strong>
             <table> 
                 <tr>
@@ -127,21 +137,25 @@ function tablaEmpleados($listaempleados){
 					<th>Departamento</th>
 					<th>Salario</th>
 					<th>Cargo</th>
+					<th></th>
                 </tr>";
 
-        foreach($_SESSION["bandejaempleados"] as $value){
+        foreach($_SESSION["bandejaempleados"] as $value => $arra){
             echo "<tr>";
-            echo "<td> ".$value["nombre"]. "</td>";
-            echo "<td>".$value["apellido"]."</td>";	
-			echo "<td>".$value["fechnac"]."</td>";
-			echo "<td>".$value["genero"]."</td>";
-			echo "<td>".$value["contrato"]."</td>";
-			echo "<td>".$value["depar"]."</td>";
-			echo "<td>".$value["salario"]."</td>";
-			echo "<td>".$value["cargo"]."</td>";	
+            echo "<td> ".$arra["nombre"]. "</td>";
+            echo "<td>".$arra["apellido"]."</td>";	
+			echo "<td>".$arra["fechnac"]."</td>";
+			echo "<td>".$arra["genero"]."</td>";
+			echo "<td>".$arra["contrato"]."</td>";
+			echo "<td>".$arra["depar"]."</td>";
+			echo "<td>".$arra["salario"]."</td>";
+			echo "<td>".$arra["cargo"]."</td>";
+			echo "<td>"."<a href='../views/altaMasEmpleados_view.php?item=$value'>Eliminar</a>"."</td>";
             echo "</tr>";
+			$total=$value+1;
         }
         echo "</table>";
+		echo "<strong class='total'>Total: ".$total."</strong>";
 }
 
 
