@@ -21,7 +21,7 @@ if(!isset($_SESSION["usuario"])){
 <body>
 	<h1>Bienvenido <?php echo $nombreU["first_name"]." ".$nombreU["last_name"];?> - DPTO Recursos Humanos</h1>
 	<li><a href="altaEmpleado_view.php">Alta Empleado</a></li>
-	<li><a href="">Alta Masiva de Empleados</a></li>
+	<li><a href="altaMasEmpleados_view.php">Alta Masiva de Empleados</a></li>
 	<li><a href="">Modificar salario</a></li>
 	<li><a href="">Vida Laboral</a></li>
 	<li><a href="">Info Departamentos</a></li>
