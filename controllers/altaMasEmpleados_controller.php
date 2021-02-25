@@ -54,19 +54,35 @@ if (isset($_POST["agregar"])){
 	$salario=$_POST["salario"];
 	$cargo=$_POST["cargo"];
 	
-	//si no existe la sesion["bandejaempleados"] se creará una nueva con un array, dónde se almacenara cada uno de los datos que se recogen del formulario
+	//si no existe la sesion["bandejaempleados"] se creará una nueva con un array asociativo, dónde se almacenara cada uno de los datos que se recogen del formulario
 	if(!isset($_SESSION["bandejaempleados"])){
-		$_SESSION["bandejaempleados"]=array(array($nacido, $nombre, $apellido, $genero, $contrato, $depa, $salario, $cargo));
+		$_SESSION["bandejaempleados"]=array(array("fechnac" => $nacido,
+													"nombre"=> $nombre, 
+													"apellido" => $apellido,
+													"genero" => $genero,
+													"contrato" => $contrato,
+													"depar" => $depa,
+													"salario" => $salario,
+													"cargo" => $cargo));
 		echo "<p class='exito'>Empleado agregado a a lista, en espera de agregarlo..</p>";
-	}else{//si ya existe la sesion["bandejaempleados"] (ya tiene al menos 1 valor), se agregará al final del último valor agregado los siguientes y siguientes...
-		array_push($_SESSION["bandejaempleados"],array($nacido, $nombre, $apellido, $genero, $contrato, $depa, $salario, $cargo));
+	}else{//si ya existe la sesion["bandejaempleados"] (ya tiene al menos 1 valor), se agregará al final del último valor agregado los siguientes y siguientes...(array asociativo)
+		array_push($_SESSION["bandejaempleados"],array("fechnac" => $nacido,
+													"nombre"=> $nombre, 
+													"apellido" => $apellido,
+													"genero" => $genero,
+													"contrato" => $contrato,
+													"depar" => $depa,
+													"salario" => $salario,
+													"cargo" => $cargo));
 		echo "<p class='exito'>Empleado agregado a a lista, en espera de agregarlo..</p>";
 	}
 		
 }
 
+
 //Variable para usarla en la view y mostrar los datos de los empleados almacenados en la sesion["bandejaempleados"]
 //$listaempleados = $_SESSION["bandejaempleados"];
+
 	
 //si se hace click en el botón vaciar se vaciará la sesion["bandejaempleados"]
 if(isset($_POST["vaciar"])){
@@ -74,7 +90,16 @@ if(isset($_POST["vaciar"])){
 	//session_unset($_SESSION["bandejaempleados"]);
 }
 	
-	
+//Al hacer click en el boton de alta (alta masiva empleados), accederemos a la sesion[bandejaempleados] dónde estarán almacenados los empleados que se hayan agregado anteriormente, se accederá por el valor de cada elemento en el array asociativo 
+if(isset($_POST["alta"])){
+	foreach($_SESSION["bandejaempleados"] as $value){
+		altaEmpleado($value["fechnac"], $value["nombre"], $value["apellido"], $value["genero"], $value["contrato"], $value["depar"], $value["salario"], $value["cargo"]);
+	}
+	echo "<p class='exito'>Alta masiva de empleados completa</p>";
+	//se vacia el la bandejaempleados
+	$_SESSION["bandejaempleados"]=array();
+}
+
 //Llamada a la vista, intermediario entre vista y modelo
 require_once("../views/altaMasEmpleados_view.php");
 
@@ -106,14 +131,14 @@ function tablaEmpleados($listaempleados){
 
         foreach($_SESSION["bandejaempleados"] as $value){
             echo "<tr>";
-            echo "<td> ".$value[1]. "</td>";
-            echo "<td>".$value[2]."</td>";	
-			echo "<td>".$value[0]."</td>";
-			echo "<td>".$value[3]."</td>";
-			echo "<td>".$value[4]."</td>";
-			echo "<td>".$value[5]."</td>";
-			echo "<td>".$value[6]."</td>";
-			echo "<td>".$value[7]."</td>";	
+            echo "<td> ".$value["nombre"]. "</td>";
+            echo "<td>".$value["apellido"]."</td>";	
+			echo "<td>".$value["fechnac"]."</td>";
+			echo "<td>".$value["genero"]."</td>";
+			echo "<td>".$value["contrato"]."</td>";
+			echo "<td>".$value["depar"]."</td>";
+			echo "<td>".$value["salario"]."</td>";
+			echo "<td>".$value["cargo"]."</td>";	
             echo "</tr>";
         }
         echo "</table>";
