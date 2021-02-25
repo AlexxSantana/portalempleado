@@ -53,6 +53,10 @@ function listaCargo(){
 	return $listadepa;
 }
 
+
+
+
+
 # Función 'listaProductos'. 
 # Parámetros: 
 # 	
