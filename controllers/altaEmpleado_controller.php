@@ -24,8 +24,18 @@ session_start();
 		session_unset();
 		session_destroy();
 }*/
+
+//Si empleado no existe, es decir no esta logeado, volverá al index.php para logearse y no se podrá ver la info de esta pag hasta que se logee correctamente
+if(!isset($_SESSION["usuario"])){
+		header("location: ../index.php");
+		//session_destroy();
+}else{
+		$idUser=$_SESSION["usuario"];
+		$nombreU=obtenerNombre($idUser);
+	}
 	
-	
+
+//
 if(!empty($_SESSION["usuario"])){
 	
 	$listadpt=listaDepa();
