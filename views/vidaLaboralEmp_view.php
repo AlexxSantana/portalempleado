@@ -61,6 +61,8 @@ table {border-collapse: collapse;
         <input type="text" name="empleado"  /><br><br>
 		
         <input type="submit" name="buscar" value="Buscar" /><br><br>
+	  
+	   <a href="menuEHR_view.php" ><input type="button" value="Volver al menú" class="volver">
 		
     </form>
 	
