@@ -60,10 +60,8 @@ table {border-collapse: collapse;
         <label for="empleado">Buscar Empleado (ID)</label>
         <input type="text" name="empleado"  /><br><br>
 		
-        <input type="submit" name="buscar" value="Buscar" /><br><br>
-	  
-	   <a href="menuEHR_view.php" ><input type="button" value="Volver al menú" class="volver">
-		
+        <input type="submit" name="buscar" value="Buscar" />
+		<a href="menuEHR_view.php" ><input type="button" value="Volver al menú" class="volver">
     </form>
 	
 	<?php
