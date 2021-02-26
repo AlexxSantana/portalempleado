@@ -31,7 +31,7 @@ if(!isset($_SESSION["usuario"])){
 	<li><a href="altaEmpleado_view.php">Alta Empleado</a></li>
 	<li><a href="altaMasEmpleados_view.php">Alta Masiva de Empleados</a></li>
 	<li><a href="modSalario_view.php">Modificar salario</a></li>
-	<li><a href="">Vida Laboral</a></li>
+	<li><a href="vidaLaboralEmp_view.php">Consultar vida laboral de empleados</a></li>
 	<li><a href="">Info Departamentos</a></li>
 	<li><a href="">Cambio Departamento</a></li>
 	<li><a href="">Nuevo Jefe Departamento</a></li>
