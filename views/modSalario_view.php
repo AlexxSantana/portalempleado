@@ -66,14 +66,18 @@ table {border-collapse: collapse;
 	margin-left:-61%;
 }
 
+.exito{
+	color:blue;
+	position:relative;
+	top: 0 auto;
+}
+
 </style>
 <body>
 
 	<h3>Usuario <strong class="user"><?php echo $nombreU["first_name"]." ".$nombreU["last_name"];?></strong></h3>
     <h1> Modificar Salario Empleados</h1>
-	<?php
-//if (!isset($_POST) || empty($_POST)) {
-?>
+
     <form name='datos' action='<?php echo htmlentities($_SERVER["PHP_SELF"]);?>' method='POST'>
         <label for="empleado">Buscar Empleado (ID)</label>
         <input type="text" name="empleado"  /><br><br>
@@ -82,58 +86,32 @@ table {border-collapse: collapse;
 		<!--<label for="salario">Salario</label>
         <input type="number" name="salario" required /><br><br>-->
 		
-        <input type="submit" name="buscar" value="Buscar"/>
+        <!--<input type="submit" name="buscar" value="Buscar"/>-->
 		<input type="submit" name="modificar" value="Modificar salario"/>
 		<a href="menuEHR_view.php" ><input type="button" value="Volver al menú" class="volver"></a><br><br>
-		<label for="salario">Nuevo salrio</label>
+		<label for="salario">Nuevo salario</label>
         <input type="number" name="salario"  class="mueve" /><br><br>
 		
+		<?php
+		if (isset($_POST["modificar"])) {
+			if(!empty($_POST["empleado"]) && !empty($_POST["salario"])){
+				$nuevosalario=$_POST["salario"];
+				$idemp=$_POST["empleado"];
+				modificarSalario($idemp, $nuevosalario);
+				$empleado=listaEmpleados($idemp);
+				$nombre=detalleEmpleado($empleado);
+				echo "<p class='exito'>Se ha modificado correctamente el salario de <strong>$nombre</strong></p>";
+			} else{
+				echo "<p class='error'>Campo ID y salario vacíos</p>";
+			}
+			
+		}
+				
+		?>
 		
     </form>
 	
-	<?php
-	//} else{
 	
-			
-			
-			//if (isset($_POST) && !empty($_POST)) {
-			if(isset($_POST["buscar"]) || isset($_POST["modificar"])){
-			
-				$emple=$_POST["empleado"];
-				$salario=$_POST["salario"];
-				//Se obitene la funcion listaEmpleados y se guarda en una varable $empleado pasando el parámettro de emple que introduce el trabajdor en la caja de text
-				$empleado=listaEmpleados($emple);
-			
-			
-			
-				//Al insertar un dato existe en la tabla employees (emp_no) obtendremos en formato tabla los detalles de dicho empleado
-				if(!isset($_POST["empleado"])!= $empleado){
-					//se obtiene en formato tabla el detalle del empleado que se ha buscado
-					detalleEmpleado($empleado);
-				}else{//si al insertar un dato erróneo que no existe en la tabla employees (emp_no) saltará un error
-					echo "<p class='error'>No existe el empleado con identidicador:  <strong>".$_POST["empleado"]."</strong></p>";
-				}
-				
-				if(isset($_POST["modificar"])){
-					modificarSalario($emple, $salario);
-					echo"pas";
-				}
-				
-			}
-			/*if(isset($_POST["modificar"]) || isset($_POST["buscar"])){
-					modificarSalario($_POST["salario"], $_POST["empleado"]);
-					
-				}*/
-			
-			
-			
-				/*if(isset($_POST["modificar"])){
-					modificarSalario($_POST["salario"], $_POST["empleado"]);
-					echo "BUAH";
-				}*/
-		//}
-				
-		?>
 	
 	
 </body>
