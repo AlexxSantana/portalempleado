@@ -35,16 +35,11 @@ if(!isset($_SESSION["usuario"])){
 }else{//si existe la sesion de usuario, es decir esta logeado, se obtendrán las siguientes variables para poder hacer uso de ellas en la vista y poder mostrar el nombre+apellido del empleaod que este logeado en ese momento
 		$idUser=$_SESSION["usuario"];
 		$nombreU=obtenerNombre($idUser);
+		
+		//
+	
 	}
 
-//Al hacer click en el boton buscar.
-/*if(isset($_POST["buscar"])){
-	$emple=$_POST["empleado"];
-	//$salario=$_POST["salario"];
-	//Se obitene la funcion listaEmpleados y se guarda en una varable $empleado pasando el parámettro de emple que introduce el trabajdor en la caja de text
-	$empleado=listaEmpleados($emple);
-
-} */
 
 
 
@@ -86,9 +81,9 @@ function detalleEmpleado($empleado){
 				echo "<td>".$fila["contrato"]."</td>";
 				echo "<td>".$fila["salario"]."</td>";
 				echo "</tr>";
-			//return $fila["idemp"];
         }
         echo "</table>";
+		return $fila["nombre"];
 	
 }
 
