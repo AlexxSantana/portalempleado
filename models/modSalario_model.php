@@ -44,17 +44,8 @@ function listaEmpleados($idEmpleado){
 # Return: lista de los productos
 #
 # Alex Santana
-function modificarSalario($salario, $idEmpleado){
+function modificarSalario($idEmpleado, $salario){
 	global $conexion;
-	//$sql = "UPDATE salaries SET salary='$salario' WHERE emp_no='$idEmpleado'";
-	//$stmt=$conexion->prepare($sql);
-	//$stmt->execute($sql);
-	//$listaemp=$stmt->fetchAll(PDO::FETCH_ASSOC);
-	//return $listaemp;
-	//execute($sql);
-	//Ejecutar la consulta
-	//$resultados=mysqli_query($conexion, $sql);
-	//return $resultados;
 	$updateSalario = $conexion->prepare("UPDATE salaries SET salary=:salario WHERE emp_no=:idEmpleado");	
 	$updateSalario->bindParam(":salario", $salario);
 	$updateSalario->bindParam(":idEmpleado", $idEmpleado);
